@@ -1,0 +1,37 @@
+https://github.com/Da9el00/Spring-Boot-simple-jwt-example
+https://github.com/frechett/Spring-Boot-simple-jwt-example
+
+import requests
+response = requests.get("http://localhost:8080/hello")
+print(response.status_code)
+403
+data = {"username": "user", "password": "password"} 
+response = requests.post("http://localhost:8080/auth/login", json=data)
+print(response.status_code)
+200
+print(response.text)
+headers = {'Authorization': response.text}
+response = requests.get("http://localhost:8080/hello", headers=headers)
+print(response.status_code)
+200
+print(response.text)
+Hello World!1
+
+
+cd src/main/resources
+keytool -genkeypair -alias springboot -keyalg RSA -keypass changeit -storepass changeit -keysize 4096 -storetype PKCS12 -keystore springboot.p12 -dname "CN=Kevin Frechette, OU=SNW, O=ISTI, L=Saratoga Springs, ST=NY C=US" -validity 36525
+keytool -list -v -keystore springboot.p12
+keytool -export -keystore springboot.p12 -alias springboot -file myCertificate.crt
+
+
+import requests
+data = {"username": "user", "password": "password"} 
+response = requests.post("https://localhost:8443/auth/login", json=data, verify=False)
+print(response.status_code)
+print(response.text)
+headers = {'Authorization': response.text}
+response = requests.get("https://localhost:8443/hello", headers=headers, verify=False)
+print(response.status_code)
+200
+print(response.text)
+Hello World!1
