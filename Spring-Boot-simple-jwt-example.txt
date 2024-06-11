@@ -18,10 +18,12 @@ print(response.text)
 Hello World!1
 
 
-cd src/main/resources
+mkdir -p src/main/resources/keystore
+pushd src/main/resources/keystore
 keytool -genkeypair -alias springboot -keyalg RSA -keypass changeit -storepass changeit -keysize 4096 -storetype PKCS12 -keystore springboot.p12 -dname "CN=Kevin Frechette, OU=SNW, O=ISTI, L=Saratoga Springs, ST=NY C=US" -validity 36525
 keytool -list -v -keystore springboot.p12
 keytool -export -keystore springboot.p12 -alias springboot -file myCertificate.crt
+popd
 
 
 import requests
